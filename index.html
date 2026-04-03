@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Appraisal</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #4da6ff;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 18px;
+}
+
+input, select {
+  background: #1c1c2b;
+  color: #fff;
+}
+
+button {
+  background: #4da6ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #4da6ff;
+}
+
+button:hover {
+  background: #3399ff;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 18px;
+  background: #0d1a2d;
+  border-radius: 12px;
+  font-size: 20px;
+  color: #66b3ff;
+  line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>💰 Gold Appraisal</h2>
+
+  <input type="number" id="weight" step="0.01" placeholder="Weight (grams)">
+  
+  <select id="karat">
+    <option value="24">24K (100%)</option>
+    <option value="22">22K (91.6%)</option>
+    <option value="20">20K (83.3%)</option>
+    <option value="18">18K (75%)</option>
+  </select>
+
+  <input type="number" id="rate" step="0.01" placeholder="Gold Rate (₹ per gram)">
+
+  <button onclick="calculateGold()">Calculate</button>
+
+  <div class="result" id="result">
+    Enter values and press Calculate
+  </div>
+</div>
+
+<script>
+function calculateGold() {
+  let weight = document.getElementById("weight").value.trim();
+  let karat = document.getElementById("karat").value;
+  let rate = document.getElementById("rate").value.trim();
+
+  weight = Number(weight);
+  karat = Number(karat);
+  rate = Number(rate);
+
+  if (!weight || isNaN(weight) || weight <= 0) {
+    document.getElementById("result").innerText = "⚠️ Enter valid weight!";
+    return;
+  }
+
+  if (!rate || isNaN(rate) || rate <= 0) {
+    document.getElementById("result").innerText = "⚠️ Enter valid gold rate!";
+    return;
+  }
+
+  let pureGold = weight * (karat / 24);
+  let value = pureGold * rate;
+
+  document.getElementById("result").innerHTML =
+    "✅ Pure Gold: " + pureGold.toFixed(2) + " g<br>" +
+    "💰 Value: ₹" + value.toFixed(2);
+}
+</script>
+
+</body>
+</html>
